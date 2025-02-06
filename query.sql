@@ -79,4 +79,18 @@ CREATE TABLE SkillTraining (
     status ENUM('pending', 'approved', 'completed', 'cancelled') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+-- Shelter Requests table
+CREATE TABLE ShelterRequests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    family_members INT NOT NULL,
+    current_location VARCHAR(200) NOT NULL,
+    urgency_level ENUM('Low', 'Medium', 'High') DEFAULT 'Medium',
+    status ENUM('pending', 'approved', 'rejected', 'completed') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 ); 

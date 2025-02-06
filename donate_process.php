@@ -1,5 +1,7 @@
 <?php
-include 'header.php'; // Include the common header
+include 'header.php';
+require 'db_connect.php';
+
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
