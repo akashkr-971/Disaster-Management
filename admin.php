@@ -177,6 +177,21 @@ if (isset($_POST['update_status'])) {
         .catch(error => console.error('Error:', error));
         
     }
+    function updateStatus(requestId, status) {
+        if (confirm(`Are you sure you want to mark this request as ${status}?`)) {
+            fetch('admin_pages/update_request_status.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `request_id=${requestId}&status=${status}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                location.reload(); // Refresh the page to reflect status change
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    }
 </script>
 
 <script>

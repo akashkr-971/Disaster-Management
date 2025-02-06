@@ -46,7 +46,7 @@
         <div class="border-top border-secondary pt-4 mt-4">
             <div class="row align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <p class="mb-0">&copy; 2024 Renew Hope. All Rights Reserved.</p>
+                    <p class="mb-0">&copy; 2025 Renew Hope. All Rights Reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                     <ul class="list-inline mb-0">

@@ -32,38 +32,14 @@ CREATE TABLE Campaigners (
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
--- Campaigns table (for tracking campaigns created by campaigners)
--- CREATE TABLE Campaigns (
---     campaign_id INT AUTO_INCREMENT PRIMARY KEY,
---     campaigner_id INT NOT NULL,
---     title VARCHAR(200) NOT NULL,
---     description TEXT NOT NULL,
---     goal_amount DECIMAL(10,2),
---     current_amount DECIMAL(10,2) DEFAULT 0,
---     start_date DATE NOT NULL,
---     end_date DATE,
---     status ENUM('active', 'completed', 'cancelled') DEFAULT 'active',
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (campaigner_id) REFERENCES Campaigners(campaigner_id)
--- );
-
--- Volunteer Assignments table (for tracking volunteer work)
--- CREATE TABLE VolunteerAssignments (
---     assignment_id INT AUTO_INCREMENT PRIMARY KEY,
---     volunteer_id INT NOT NULL,
---     campaign_id INT,
---     assignment_type VARCHAR(100) NOT NULL,
---     start_date DATE NOT NULL,
---     end_date DATE,
---     status ENUM('assigned', 'completed', 'cancelled') DEFAULT 'assigned',
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (volunteer_id) REFERENCES Volunteers(volunteer_id),
---     FOREIGN KEY (campaign_id) REFERENCES Campaigns(campaign_id)
--- );
-
--- Sample admin user insertion
 INSERT INTO Users (full_name, email, password, role) 
 VALUES ('Admin User', 'admin@renewhope.com', 'admin123', 'admin');
+INSERT INTO Users (full_name, email, password, role) 
+VALUES ('User1', 'user1@renewhope.com', 'user123', 'user');
+INSERT INTO Users (full_name, email, password, role) 
+VALUES ('Volunteer1', 'volunteer1@renewhope.com', 'volunteer123', 'volunteer');
+INSERT INTO Users (full_name, email, password, role) 
+VALUES ('Campaigne  ', 'campaigner1@renewhope.com', 'campaigner123', 'campaigner');
 
 -- Skill Training Registration table
 CREATE TABLE SkillTraining (
@@ -131,3 +107,57 @@ CREATE TABLE InsuranceRequests (
     incident_description TEXT NOT NULL,
     FOREIGN KEY (request_id) REFERENCES FinancialAidRequests(request_id) ON DELETE CASCADE
 ); 
+
+CREATE TABLE rescue_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sender VARCHAR(20) NOT NULL,
+    message TEXT NOT NULL,
+    received_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE RescueRequests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    emergency_type ENUM('flood', 'landslide', 'fire', 'medical', 'other') NOT NULL,
+    num_people INT NOT NULL,
+    medical_attention ENUM('yes', 'no') NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    district VARCHAR(50) NOT NULL,
+    location TEXT NOT NULL,
+    additional_info TEXT,
+    status ENUM('pending', 'processing', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_status (status),
+    INDEX idx_emergency_type (emergency_type),
+    INDEX idx_district (district)
+);
+
+-- Food and Medicine Requests table
+CREATE TABLE FoodMedicineRequests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    request_type SET('food', 'medicine') NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    priority_level ENUM('urgent', 'high', 'medium', 'low') NOT NULL,
+    delivery_address TEXT NOT NULL,
+    special_requirements TEXT,
+    status ENUM('pending', 'processing', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_status (status),
+    INDEX idx_priority (priority_level)
+);
+
+CREATE TABLE supply_requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    camp_name VARCHAR(100) NOT NULL,
+    food_items TEXT,
+    medicines TEXT,
+    funding_request DECIMAL(10,2),
+    comments TEXT,
+    requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+ALTER TABLE Campaigners ADD COLUMN verification_status ENUM('pending', 'verified', 'rejected') DEFAULT 'pending'
+ALTER TABLE supply_requests ADD COLUMN status ENUM('pending', 'approved', 'rejected','completed') DEFAULT 'pending';

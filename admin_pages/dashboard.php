@@ -134,6 +134,72 @@ $pending_verifications = $conn->query("
             </table>
         </div>
     </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Camp Name</th>
+                        <th>Food Items</th>
+                        <th>Medicines</th>
+                        <th>Funding Request</th>
+                        <th>Comments</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $recent_requests = $conn->query("
+                        SELECT 
+                            request_id AS id,
+                            camp_name,
+                            food_items,
+                            medicines,
+                            funding_request,
+                            comments,
+                            requested_at,
+                            status
+                        FROM supply_requests
+                        ORDER BY requested_at DESC
+                        LIMIT 10
+                    ");
+
+                    while ($row = $recent_requests->fetch()) {
+                        $status_class = match($row['status']) {
+                            'pending' => 'bg-warning',
+                            'approved' => 'bg-success',
+                            'completed' => 'bg-info',
+                            'rejected' => 'bg-danger',
+                            default => 'bg-secondary'
+                        };
+                        
+                        echo "<tr>
+                                <td>{$row['id']}</td>
+                                <td>{$row['camp_name']}</td>
+                                <td>{$row['food_items']}</td>
+                                <td>{$row['medicines']}</td>
+                                <td>{$row['funding_request']}</td>
+                                <td>{$row['comments']}</td>
+                                <td>" . date('Y-m-d H:i', strtotime($row['requested_at'])) . "</td>
+                                <td><span class='badge {$status_class}'>{$row['status']}</span></td>
+                                <td>
+                                    <button class='btn btn-sm btn-success' onclick='updateStatus({$row['id']}, \"approved\")'>
+                                        <i class='bi bi-check-circle'></i>
+                                    </button>
+                                    <button class='btn btn-sm btn-danger' onclick='updateStatus({$row['id']}, \"rejected\")'>
+                                        <i class='bi bi-x-circle'></i>
+                                    </button>
+                                </td>
+                            </tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>

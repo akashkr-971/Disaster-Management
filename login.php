@@ -27,7 +27,7 @@ if(isset($_POST['login-button'])) {
                         header("Location: volunteer.php");
                         break;
                     case 'campaigner':
-                        header("Location: campaigner.php");
+                        header("Location: camp.php");
                         break;
                     default:
                         header("Location: home.php");
