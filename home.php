@@ -641,7 +641,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Temporary Shelter Request</h5>
                             <p class="card-text">Request for temporary shelters when in need.</p>
-                            <a href="shelter.php" class="btn btn-warning">Request Shelter</a>
+                            <a href="request_shelter.php" class="btn btn-warning">Request Shelter</a>
                         </div>
                     </div>
                 </div>
