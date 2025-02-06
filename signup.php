@@ -1,6 +1,9 @@
 <?php require 'header.php';
 require 'db_connect.php';
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if(isset($_POST['signup-button'])) {
     try {

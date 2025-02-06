@@ -577,6 +577,13 @@
         </div>
     </header>
 
+    <div class="container-fluid bg-light py-2" style="background-color: #f5f5f5;">
+        <marquee scrollamount="10">
+            Upload your important files on the government website to get help from the government.Upload the files on the <a href="">DigiLocker</a> website to safeguard your documents.
+        </marquee>
+    </div>
+
+
     <!-- Add after the hero section and before the services section -->
     <div class="container-fluid bg-light py-5" id="servicessection">
         <div class="container">
@@ -605,7 +612,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Apply for Financial Aid</h5>
                             <p class="card-text">Submit your request for financial assistance, and insurance claims.</p>
-                            <a href="aid.php" class="btn btn-primary">Apply Now</a>
+                            <a href="financialaid.php" class="btn btn-primary">Apply Now</a>
                         </div>
                     </div>
                 </div>
@@ -629,7 +636,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Mental Health Support</h5>
                             <p class="card-text">Connect with professionals or join support groups.</p>
-                            <a href="mentalhealth.php" class="btn btn-info">Get Support</a>
+                            <a href="mental.php" class="btn btn-info">Get Support</a>
                         </div>
                     </div>
                 </div>

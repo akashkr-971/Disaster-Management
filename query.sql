@@ -93,4 +93,41 @@ CREATE TABLE ShelterRequests (
     status ENUM('pending', 'approved', 'rejected', 'completed') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+-- Financial Aid Requests table
+CREATE TABLE FinancialAidRequests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    request_type ENUM('loan', 'insurance') NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    purpose TEXT NOT NULL,
+    supporting_documents VARCHAR(255) DEFAULT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+-- Loan Details table
+CREATE TABLE LoanRequests (
+    loan_id INT AUTO_INCREMENT PRIMARY KEY,
+    request_id INT NOT NULL,
+    monthly_income DECIMAL(10,2) NOT NULL,
+    employment_status VARCHAR(50) NOT NULL,
+    loan_duration INT NOT NULL,
+    FOREIGN KEY (request_id) REFERENCES FinancialAidRequests(request_id) ON DELETE CASCADE
+);
+
+-- Insurance Details table
+CREATE TABLE InsuranceRequests (
+    insurance_id INT AUTO_INCREMENT PRIMARY KEY,
+    request_id INT NOT NULL,
+    insurance_type VARCHAR(50) NOT NULL,
+    policy_number VARCHAR(50) NOT NULL,
+    incident_date DATE NOT NULL,
+    incident_description TEXT NOT NULL,
+    FOREIGN KEY (request_id) REFERENCES FinancialAidRequests(request_id) ON DELETE CASCADE
 ); 

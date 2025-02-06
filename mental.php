@@ -1,5 +1,10 @@
 <?php
-include 'header.php'; // Include the common header
+include 'header.php';
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['error'] = "Please login to look for appointments";
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
