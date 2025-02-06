@@ -1,0 +1,543 @@
+/* Common Theme Styles */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f5f5f5;
+    --dark-color: #343a40;
+    --white-color: #ffffff;
+}
+
+body {
+    background-color: var(--light-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 56px;
+    /* Reduced from 76px to match navbar height */
+    margin: 0;
+}
+
+/* Card Styles */
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    background: var(--white-color);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+.input-box {
+    background: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.form-control,
+.w3-input {
+    border-radius: 10px !important;
+    padding: 0.8rem !important;
+    margin-bottom: 1rem !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-control:focus,
+.w3-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.15) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Button Styles */
+.btn,
+.w3-btn {
+    border-radius: 25px !important;
+    padding: 10px 25px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn:hover,
+.w3-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+.page-header {
+    background: var(--primary-color);
+    color: var(--white-color);
+    padding: 3rem 0;
+    margin-top: -56px;
+    /* Negative margin to remove gap */
+    padding-top: calc(56px + 3rem);
+    /* Navbar height + original padding */
+    margin-bottom: 3rem;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.page-header .lead {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Section Styles */
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+/* Info Box Styles */
+.info-box {
+    background: linear-gradient(45deg, rgba(0, 123, 255, 0.05), rgba(0, 123, 255, 0.1));
+    border-left: 4px solid var(--primary-color);
+    padding: 1.5rem;
+    border-radius: 0 15px 15px 0;
+    margin: 2rem 0;
+}
+
+.info-box p {
+    color: #2c3e50;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Error message styling */
+.text-danger {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* Missing Person Form specific styles */
+.missing-person-form {
+    position: relative;
+}
+
+.missing-person-form .form-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.missing-person-form label {
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.missing-person-form .form-control {
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef !important;
+    padding: 1rem 1.2rem !important;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.missing-person-form .form-control:focus {
+    background-color: #fff;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1) !important;
+}
+
+/* File input styling */
+.missing-person-form input[type="file"] {
+    padding: 0.8rem !important;
+    background: #fff;
+    border: 2px dashed #ccc !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.missing-person-form input[type="file"]:hover {
+    border-color: var(--primary-color) !important;
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Date inputs styling */
+.missing-person-form .date-inputs .form-control {
+    text-align: center;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Required field indicator */
+.required-field::after {
+    content: '*';
+    color: var(--danger-color);
+    margin-left: 4px;
+}
+
+/* Form section divider */
+.form-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #dee2e6, transparent);
+    margin: 2rem 0;
+}
+
+/* Submit button container */
+.form-actions {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.form-actions .btn {
+    padding: 0.8rem 2rem !important;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: 56px;
+    }
+
+    .page-header {
+        margin-top: -56px;
+        padding-top: calc(56px + 2rem);
+    }
+
+    .input-box {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .btn,
+    .w3-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .missing-person-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Form container improvements */
+.form-container {
+    padding: 2rem 0 4rem 0;
+}
+
+/* Form group spacing */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Label improvements */
+label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+/* Navbar improvements */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--dark-color) !important;
+    height: 56px;
+}
+
+.navbar-nav {
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    padding: 0.5rem 1rem !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+/* Update the login button style */
+.nav-link.btn {
+    padding: 0.5rem 1.5rem !important;
+    margin: 0;
+    height: auto;
+}
+
+/* Remove the underline effect for the login button */
+.nav-link.btn::after {
+    display: none;
+}
+
+/* Update the Report Missing Person link style */
+.nav-link.text-danger {
+    color: var(--danger-color) !important;
+    font-weight: 500;
+}
+
+.nav-link.text-danger:hover {
+    color: #dc3545 !important;
+}
+
+/* Remove the underline effect for the Report Missing Person link */
+.nav-link.text-danger::after {
+    display: none;
+}
+
+/* Responsive navbar adjustments */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: var(--dark-color);
+        padding: 1rem;
+        margin: 0 -1rem;
+    }
+
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+
+    .nav-link.btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Add or update the navbar brand styling */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    color: var(--white-color) !important;
+}
+
+.navbar-brand i {
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-1px);
+}
+
+/* Authentication pages styling */
+.auth-container {
+    padding: 4rem 0;
+    min-height: calc(100vh - 180px);
+    display: flex;
+    align-items: center;
+}
+
+.auth-box {
+    background: var(--white-color);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-box h2 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.auth-box .input-group {
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+}
+
+.auth-box .input-group-text {
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    padding-right: 0;
+    opacity: 0.7;
+}
+
+.auth-box .form-control {
+    border: none;
+    padding: 0.8rem 1rem;
+    background: transparent;
+    margin-bottom: 0 !important;
+}
+
+.auth-box .input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+.auth-box .input-group:focus-within .input-group-text {
+    opacity: 1;
+}
+
+.auth-box .form-control,
+.auth-box .w3-input {
+    margin: 0 !important;
+}
+
+.auth-box .form-label {
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.auth-box .btn-primary {
+    padding: 0.8rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.auth-box .form-check-label {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 2rem 1rem;
+    }
+
+    .auth-box {
+        padding: 2rem;
+    }
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--dark-color);
+}
+
+.footer-links a {
+    color: #a0a0a0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    padding: 5px 0;
+}
+
+.footer-links a:hover {
+    color: var(--white-color);
+    transform: translateX(5px);
+}
+
+.footer-contact li {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.social-links a {
+    color: #a0a0a0;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+footer h5 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.list-inline-item a {
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.list-inline-item a:hover {
+    color: var(--white-color);
+}
+
+@media (max-width: 768px) {
+    footer {
+        text-align: center;
+    }
+
+    .footer-links a {
+        padding: 8px 0;
+    }
+
+    .social-links {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Skill Training Styles */
+#skill-training .card {
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+#skill-training .card:hover {
+    transform: translateY(-10px);
+}
+
+#skill-training .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.training-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.training-list li:last-child {
+    border-bottom: none;
+}
+
+.program-card {
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.program-card .bi {
+    font-size: 1.5rem;
+}
