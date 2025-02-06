@@ -89,7 +89,7 @@ $donor_name = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : 'Generous
         <div class="success-icon">🎉</div>
         <h2>Thank You, <?php echo $donor_name; ?>!</h2>
         <p>Your generous donation has been successfully received. Your support is making a real difference in disaster recovery.</p>
-        <a href="index.php" class="btn btn-home">Return to Home</a>
+        <a href="home.php" class="btn btn-home">Return to Home</a>
     </div>
 </div>
 

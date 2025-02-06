@@ -617,7 +617,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Make a Difference - Donate</h5>
                             <p class="card-text">Your contributions help disaster victims recover faster.</p>
-                            <a href="donate.php" class="btn btn-success">Donate Now</a>
+                            <a href="donate_process.php" class="btn btn-success">Donate Now</a>
                         </div>
                     </div>
                 </div>
@@ -736,7 +736,7 @@
                 <i class="bi bi-exclamation-triangle-fill"></i>
             </div>
             <p class="lead">If you know of someone who is missing after the disaster, please help us by reporting their location. Time is crucial!</p>
-            <a href="missingpersonform.php" class="btn btn-danger btn-lg">Report Missing Person</a>
+            <a href="report_missing.php" class="btn btn-danger btn-lg">Report Missing Person</a>
         </div>
     </section>
 

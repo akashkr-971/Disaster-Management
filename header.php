@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+    <?php
+    // Start session at the very beginning of the file
+    if(!isset($_SESSION)) {
+        session_start();
+    }
+    ?>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 65px;">
         <div class="container">
@@ -32,9 +38,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="home.php#contact">Contact</a>
                     </li>
+                    <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
                         <a class="nav-link btn btn-primary text-white px-4" href="login.php">Login</a>
                     </li>
+                    <?php else: ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, <?php echo htmlspecialchars($_SESSION['full_name']); ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item text-white" href="logout.php">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -58,6 +80,41 @@
         
         .navbar-nav .text-danger:hover {
             color: #dc3545 !important;
+        }
+
+        /* Dropdown styling to match navbar */
+        .dropdown-menu {
+            background-color: #212529;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+            padding: 8px 0;
+        }
+
+        .dropdown-item {
+            color: #fff !important;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #2c3237;
+            color: white;
+            padding-left: 25px;
+        }
+
+        .dropdown-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Add a subtle arrow to the dropdown */
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #212529;
         }
     </style>
 </body>

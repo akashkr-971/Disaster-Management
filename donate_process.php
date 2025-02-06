@@ -1,22 +1,11 @@
 <?php
 include 'header.php'; // Include the common header
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get donation details
-    $donation_amount = $_POST['amount'] ?? '';
-    $donor_name = $_POST['name'] ?? '';
-    $donor_email = $_POST['email'] ?? '';
-
-    // Basic validation
-    if (empty($donation_amount) || empty($donor_name) || empty($donor_email)) {
-        echo "<script>alert('Please fill in all required fields.'); window.history.back();</script>";
-        exit;
-    }
-
-    // Here, integrate a payment gateway (e.g., Razorpay, PayU for INR)
-    // For now, redirecting to a thank-you page
-    header("Location: donate_success.php?name=" . urlencode($donor_name));
-    exit;
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['error'] = "Please login to make a donation";
+    header("Location: login.php");
+    exit();
 }
 ?>
 

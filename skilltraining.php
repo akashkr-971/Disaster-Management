@@ -1,6 +1,53 @@
 <?php
 require 'header.php';
+require 'db_connect.php';
+
+// Process form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['error'] = "Please login to register for skill training";
+        header("Location: login.php");
+        exit();
+    }
+    
+    try {
+        $stmt = $conn->prepare("INSERT INTO SkillTraining (user_id, full_name, email, phone, skill_type, experience_level, preferred_time, comments) 
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        
+        $stmt->execute([
+            $_SESSION['user_id'],
+            $_POST['full_name'],
+            $_POST['email'],
+            $_POST['phone'],
+            $_POST['skill_type'],
+            $_POST['experience_level'],
+            $_POST['preferred_time'],
+            $_POST['comments']
+        ]);
+
+        $_SESSION['success'] = "Your skill training registration has been submitted successfully!";
+        header("Location: skilltraining.php");
+        exit();
+    } catch(PDOException $e) {
+        $_SESSION['error'] = "Error: " . $e->getMessage();
+    }
+}
+
+// Show success/error messages if any
+if (isset($_SESSION['success']) || isset($_SESSION['error'])) {
+    echo '<div class="container mt-5 pt-4">';
+    if (isset($_SESSION['success'])) {
+        echo '<div class="alert alert-success">' . $_SESSION['success'] . '</div>';
+        unset($_SESSION['success']);
+    }
+    if (isset($_SESSION['error'])) {
+        echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+        unset($_SESSION['error']);
+    }
+    echo '</div>';
+}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,6 +186,26 @@ require 'header.php';
                 margin: 0.5rem;
             }
         }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+        }
+
+        .btn-primary {
+            padding: 12px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -252,50 +319,60 @@ require 'header.php';
 
     <!-- Bootstrap Modal -->
     <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitle">Training Registration</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="registration-form" onsubmit="submitForm(event)">
-                        <input type="hidden" id="trainingType" name="trainingType">
+                    <form action="" method="POST">
+                        <input type="hidden" id="trainingType" name="skill_type">
                         
                         <div class="mb-3">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="full_name" 
+                                   value="<?php echo isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : ''; ?>" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phone" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="experience" class="form-label">Previous Experience</label>
-                            <select class="form-select" id="experience" name="experience" required>
-                                <option value="">Select experience level</option>
-                                <option value="none">No experience</option>
-                                <option value="basic">Basic knowledge</option>
+                            <label class="form-label">Experience Level</label>
+                            <select class="form-select" name="experience_level" required>
+                                <option value="">Select level</option>
+                                <option value="beginner">Beginner</option>
                                 <option value="intermediate">Intermediate</option>
                                 <option value="advanced">Advanced</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="requirements" class="form-label">Special Requirements/Notes</label>
-                            <textarea class="form-control" id="requirements" name="requirements" rows="3"></textarea>
+                            <label class="form-label">Preferred Time</label>
+                            <select class="form-select" name="preferred_time" required>
+                                <option value="">Select time</option>
+                                <option value="morning">Morning (9 AM - 12 PM)</option>
+                                <option value="afternoon">Afternoon (2 PM - 5 PM)</option>
+                                <option value="evening">Evening (6 PM - 9 PM)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Additional Comments</label>
+                            <textarea class="form-control" name="comments" rows="3"></textarea>
                         </div>
 
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Register for Training</button>
+                            <button type="submit" class="btn btn-primary">Register</button>
                         </div>
                     </form>
                 </div>
@@ -313,35 +390,6 @@ require 'header.php';
         
         document.addEventListener('DOMContentLoaded', function() {
             modal = new bootstrap.Modal(document.getElementById('registrationModal'));
-
-            // Adjust modal position on mobile
-            const modalDialog = document.querySelector('.modal-dialog');
-            if (window.innerWidth < 576) {
-                modalDialog.style.margin = '0.5rem';
-            }
-
-            // Close modal on successful form submission
-            const form = document.querySelector('.registration-form');
-            form.addEventListener('submit', function() {
-                setTimeout(() => {
-                    window.scrollTo(0, 0);
-                }, 100);
-            });
-
-            // Smooth scroll to top when alert appears
-            const container = document.querySelector('.container');
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.addedNodes.length) {
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            observer.observe(container, { childList: true });
         });
 
         function openModal(trainingType) {
@@ -354,40 +402,18 @@ require 'header.php';
                 'water-safety': 'Water Safety Training',
                 'fire-safety': 'Fire Safety & Response Training',
                 'mental-health': 'Mental Health Support Training',
-                'logistics': 'Logistics Management Training'
+                'logistics': 'Logistics Management Training',
             };
             
-            document.getElementById('modalTitle').textContent = titleMap[trainingType];
-            document.getElementById('trainingType').value = trainingType;
-            modal.show();
-        }
-
-        function submitForm(event) {
-            event.preventDefault();
-            
-            const formData = {
-                trainingType: document.getElementById('trainingType').value,
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                experience: document.getElementById('experience').value,
-                requirements: document.getElementById('requirements').value
-            };
-
-            console.log('Registration submitted:', formData);
-            
-            modal.hide();
-            
-            setTimeout(() => {
-                const alertHtml = `
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Registration submitted successfully!
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                `;
-                document.querySelector('.container').insertAdjacentHTML('afterbegin', alertHtml);
-                event.target.reset();
-            }, 300);
+            <?php if(!isset($_SESSION['user_id'])): ?>
+                // Set error message in session and redirect
+                <?php $_SESSION['error'] = "Please login to register for training"; ?>
+                window.location.href = 'login.php';
+            <?php else: ?>
+                document.getElementById('modalTitle').textContent = titleMap[trainingType];
+                document.getElementById('trainingType').value = trainingType;
+                modal.show();
+            <?php endif; ?>
         }
     </script>
 </body>
