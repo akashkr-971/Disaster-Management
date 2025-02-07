@@ -63,11 +63,20 @@ include 'header.php';
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Function to load and display roadblocks
+        // Update the loadRoadblocks function to handle errors properly
         function loadRoadblocks() {
-            fetch('roadblock.php')
-                .then(response => response.json())
+            fetch('get_roadblocks.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    if (data.status === 'error') {
+                        throw new Error(data.message);
+                    }
+                    
                     // Clear existing markers
                     markers.forEach(marker => map.removeLayer(marker));
                     markers = [];
@@ -84,17 +93,20 @@ include 'header.php';
                         markers.push(marker);
                         
                         // Add row to table
-                        $('#roadblockTableBody').append(`
-                            <tr>
-                                <td>${roadblock.id}</td>
-                                <td>${roadblock.description}</td>
-                                <td>${roadblock.latitude}</td>
-                                <td>${roadblock.longitude}</td>
-                            </tr>
-                        `);
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${roadblock.id}</td>
+                            <td>${roadblock.description}</td>
+                            <td>${roadblock.latitude}</td>
+                            <td>${roadblock.longitude}</td>
+                        `;
+                        document.getElementById('roadblockTableBody').appendChild(row);
                     });
                 })
-                .catch(error => console.error('Error loading roadblocks:', error));
+                .catch(error => {
+                    console.error('Error loading roadblocks:', error);
+                    alert('Error loading roadblocks: ' + error.message);
+                });
         }
 
         // Get user's current location
@@ -130,23 +142,52 @@ include 'header.php';
         $(document).ready(function() {
             $('#roadblockForm').on('submit', function(e) {
                 e.preventDefault();
+                
+                // Validate form data before sending
+                const latitude = $('#latitude').val();
+                const longitude = $('#longitude').val();
+                const description = $('#description').val().trim();
+
+                if (!latitude || !longitude) {
+                    alert('Please select a location on the map first');
+                    return;
+                }
+
+                if (!description) {
+                    alert('Please enter a description');
+                    return;
+                }
+
                 var formData = $(this).serialize();
-                $.post('roadblock.php', formData, function(response) {
-                    if (response.status === 'success') {
-                        alert(response.message);
-                        // Clear the form
-                        $('#description').val('');
-                        if (marker) {
-                            map.removeLayer(marker);
+                
+                // Debug log
+                console.log('Sending data:', formData);
+
+                $.ajax({
+                    url: 'save_roadblock.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            alert(response.message);
+                            // Clear the form
+                            $('#description').val('');
+                            if (marker) {
+                                map.removeLayer(marker);
+                            }
+                            // Reload roadblocks
+                            loadRoadblocks();
+                        } else {
+                            alert('Error: ' + response.message);
                         }
-                        // Reload roadblocks
-                        loadRoadblocks();
-                    } else {
-                        alert('Error: ' + response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('XHR Status:', status);
+                        console.error('Error:', error);
+                        console.error('Response:', xhr.responseText);
+                        alert('Error saving roadblock. Please check the console for details.');
                     }
-                }, 'json')
-                .fail(function(xhr, status, error) {
-                    alert('Error saving roadblock: ' + error);
                 });
             });
         });
@@ -155,32 +196,7 @@ include 'header.php';
 </html>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $latitude = $_POST['latitude'] ?? null;
-    $longitude = $_POST['longitude'] ?? null;
-    $description = $_POST['description'] ?? '';
-
-    if ($latitude && $longitude) {
-        try {
-            $stmt = $conn->prepare("INSERT INTO Roadblocks (latitude, longitude, description) VALUES (?, ?, ?)");
-            $stmt->execute([$latitude, $longitude, $description]);
-            echo json_encode(['status' => 'success', 'message' => 'Roadblock saved successfully']);
-        } catch (PDOException $e) {
-            echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
-        }
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid location data']);
-    }
-    exit();
-} else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    try {
-        $stmt = $conn->prepare("SELECT id, latitude, longitude, description FROM Roadblocks");
-        $stmt->execute();
-        $roadblocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($roadblocks);
-    } catch (PDOException $e) {
-        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
-    }
-    exit();
-}
+// Move all API handling code to separate files (get_roadblocks.php and save_roadblock.php)
 ?>
+
+
