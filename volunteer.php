@@ -50,7 +50,6 @@ if (isset($_POST['update_status'])) {
 }
 </style>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,27 +126,35 @@ if (isset($_POST['update_status'])) {
             </div>
         </div>
 
-        <!-- Status Update Modal -->
-        <div class="modal fade" id="updateStatusModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Status</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <!-- Recent Activities -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Activities</h5>
+                        <ul>
+                            <li>Participated in disaster relief on January 25, 2025</li>
+                            <li>Completed first aid training on February 3, 2025</li>
+                            <li>Joined community outreach program on February 5, 2025</li>
+                        </ul>
                     </div>
-                    <form action="" method="POST">
-                        <div class="modal-body">
-                            <select name="status" class="form-select">
-                                <option value="active" <?php echo $volunteer['status'] == 'active' ? 'selected' : ''; ?>>Active</option>
-                                <option value="inactive" <?php echo $volunteer['status'] == 'inactive' ? 'selected' : ''; ?>>Inactive</option>
-                                <option value="on_duty" <?php echo $volunteer['status'] == 'on_duty' ? 'selected' : ''; ?>>On Duty</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="update_status" class="btn btn-primary">Update</button>
-                        </div>
-                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Helpful Resources -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Helpful Resources</h5>
+                        <p>Explore these materials to improve your volunteering skills:</p>
+                        <ul>
+                            <li><a href="#">Disaster Response Guide</a></li>
+                            <li><a href="#">Mental Health Support Resources</a></li>
+                            <li><a href="#">Emergency Preparedness Checklist</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

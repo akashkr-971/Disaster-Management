@@ -11,10 +11,13 @@
 </head>
 <body>
     <?php
-    // Start session at the very beginning of the file
-    if(!isset($_SESSION)) {
+    if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+    if (isset($_SESSION['success'])) {
+    echo "<script>alert('{$_SESSION['success']}');</script>";
+    unset($_SESSION['success']); // Remove the message after displaying
+}
     ?>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 65px;">

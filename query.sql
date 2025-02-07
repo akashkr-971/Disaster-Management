@@ -161,3 +161,38 @@ CREATE TABLE supply_requests (
 
 ALTER TABLE Campaigners ADD COLUMN verification_status ENUM('pending', 'verified', 'rejected') DEFAULT 'pending'
 ALTER TABLE supply_requests ADD COLUMN status ENUM('pending', 'approved', 'rejected','completed') DEFAULT 'pending';
+
+CREATE TABLE donations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    donation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    payment_reference VARCHAR(255) DEFAULT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE contact_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) DEFAULT NULL,
+    subject ENUM('general', 'support', 'volunteer', 'donation', 'other') NOT NULL,
+    message TEXT NOT NULL,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE donations ADD COLUMN message TEXT;
+ALTER TABLE `donations` CHANGE `message` `message` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '-';
+
+CREATE TABLE Roadblocks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    latitude DECIMAL(10, 7) NOT NULL,
+    longitude DECIMAL(10, 7) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+

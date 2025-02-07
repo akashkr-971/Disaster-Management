@@ -1,14 +1,40 @@
 <?php
+ob_start();
 include 'header.php';
 require 'db_connect.php';
-
-
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['error'] = "Please login to make a donation";
     header("Location: login.php");
     exit();
 }
+if(isset($_POST['donate'])){
+    $amount = $_POST['amount'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+
+    try {
+        $sql = "INSERT INTO donations (user_id, name, email, amount, message) VALUES (:user_id, :name, :email, :amount, :message)";
+        $stmt = $conn->prepare($sql); // Use PDO prepare()
+        $stmt->execute([
+            ':user_id' => $_SESSION['user_id'],
+            ':name' => $name,
+            ':email' => $email,
+            ':amount' => $amount,
+            ':message' => $message
+        ]);
+
+
+        $_SESSION['success'] = "Donation successful! Thank you for your contribution.";
+        header("Location: donate_success.php");
+        exit();
+    } catch (PDOException $e) {
+        die("Database error: " . $e->getMessage());
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +122,13 @@ if (!isset($_SESSION['user_id'])) {
                 <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter amount in INR" min="10" required>
             </div>
 
-            <button type="submit" class="btn btn-donate w-100">Proceed to Donate</button>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea name="message" id="message" class="form-control" placeholder="Enter your message" required></textarea>
+            </div>
+
+
+            <button type="submit" class="btn btn-donate w-100" name="donate">Proceed to Donate</button>
         </form>
     </div>
 </div>

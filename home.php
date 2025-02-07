@@ -571,11 +571,13 @@
             <h1 class="display-4 mb-4">Rebuilding Lives, Together</h1>
             <p class="lead mb-5">Providing aid, donations, and mental health support to disaster victims.</p>
             <div class="d-flex justify-content-center gap-3">
-                <a href="#apply" class="btn btn-primary btn-lg">Get Help</a>
-                <a href="#donate" class="btn btn-success btn-lg">Donate Now</a>
+                <a href="#servicessection" class="btn btn-primary btn-lg">Get Help</a>
+                <a href="donate_process.php" class="btn btn-success btn-lg">Donate Now</a>
             </div>
         </div>
+
     </header>
+
 
     <div class="container-fluid bg-light py-2" style="background-color: #f5f5f5;">
         <marquee scrollamount="10">
@@ -652,6 +654,18 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card">
+                        <img src="static/home/road.jpg" class="card-img-top" alt="Shelter">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Road Blockage Report</h5>
+                            <p class="card-text">Report any road blockages or accidents.</p>
+                            <a href="roadblock.php" class="btn btn-warning">Report</a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -681,7 +695,7 @@
             
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="static/home/about-img.jpg" alt="About ResQAI" class="img-fluid rounded shadow">
+                    <img src="static/home/new-bg.jpg" alt="About ResQAI" class="img-fluid rounded shadow">
                 </div>
                 <div class="col-lg-6">
                     <h3 class="mb-4">Empowering Communities Through Technology</h3>
@@ -766,7 +780,7 @@
                 <div class="col-md-8">
                     <div class="card shadow-sm">
                         <div class="card-body p-4">
-                            <form id="contactForm">
+                            <form id="contactForm" method="post" action="contact_process.php">
                                 <div class="row g-4">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -879,7 +893,7 @@
     <?php require 'footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+    <!-- <script>
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -888,7 +902,7 @@
             alert('Thank you for your message! We will get back to you soon.');
             this.reset();
         });
-    </script>
+    </script> -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
