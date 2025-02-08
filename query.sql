@@ -195,4 +195,15 @@ CREATE TABLE Roadblocks (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
+CREATE TABLE missing_persons (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    state VARCHAR(100),
+    name VARCHAR(255) NOT NULL,
+    photo VARCHAR(255),
+    missing_date DATE,
+    address TEXT,
+    reported_by VARCHAR(255),
+    reporters_number VARCHAR(20),
+    police_station VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

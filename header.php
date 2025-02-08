@@ -39,6 +39,9 @@
                         <a class="nav-link text-danger" href="report_missing.php" style="margin:0px;font-weight:600;">Report Missing Person</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-warning" href="view_missing.php" style="margin:0px;font-weight:600;">Missing Persons List</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="home.php#contact">Contact</a>
                     </li>
                     <?php if(!isset($_SESSION['user_id'])): ?>

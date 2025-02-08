@@ -581,7 +581,7 @@
 
     <div class="container-fluid bg-light py-2" style="background-color: #f5f5f5;">
         <marquee scrollamount="10">
-            Upload your important files on the government website to get help from the government.Upload the files on the <a href="">DigiLocker</a> website to safeguard your documents.
+            Upload your important files on the government website to get help from the government.Upload the files on the <a href="https://www.digilocker.gov.in/" target="_blank">DigiLocker</a> website to safeguard your documents.
         </marquee>
     </div>
 
@@ -661,11 +661,36 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Road Blockage Report</h5>
                             <p class="card-text">Report any road blockages or accidents.</p>
-                            <a href="roadblock.php" class="btn btn-warning">Report</a>
+                            <a href="roadblock.php" class="btn btn-secondary">Report</a>
                         </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card">
+                        <img src="static/home/loot.jpg" class="card-img-top" alt="Shelter">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Looting and Security</h5>
+                            <p class="card-text">Informing Authorities while shifting to shelters</p>
+                            <a href="looting.php" class="btn btn-info">Report</a>
+                        </div>
+
+
 
                     </div>
                 </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card">
+                        <img src="static/home/rescue.jpg" class="card-img-top" alt="Shelter">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Rescue and location sharing</h5>
+                            <p class="card-text">SMS-based SOS requests where ever you are</p>
+                            <a href="roadblock.php" class="btn btn-success">Report</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

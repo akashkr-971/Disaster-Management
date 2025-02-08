@@ -4,8 +4,40 @@ require 'header.php';
 <!-- Add W3.CSS stylesheet link -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
 
-    getLocation();
+function showPosition(position) {
+    // You can use these coordinates to auto-fill location fields if needed
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log("Latitude: " + latitude + ", Longitude: " + longitude);
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.");
+            break;
+    }
+}
+
+// Call getLocation when the page loads
+getLocation();
 </script>
 <style>
     /* Custom styles */
@@ -82,13 +114,13 @@ require 'header.php';
             Missing date
             <div class="w3-row">
                 <div class="w3-col m4 l4 s4">
-                    <input type="number" class="w3-input w3-border" name="missingDate" id="day" placeholder="dd">
+                    <input type="number" class="w3-input w3-border" name="day" id="day" placeholder="dd">
                 </div>
                 <div class="w3-col m4 l4 s4">
-                    <input type="number" class="w3-input w3-border" name="missingDate" id="month" placeholder="mm">
+                    <input type="number" class="w3-input w3-border" name="month" id="month" placeholder="mm">
                 </div>
                 <div class="w3-col m4 l4 s4">
-                    <input type="number" class="w3-input w3-border" name="missingDate" id="year" placeholder="yyyy">
+                    <input type="number" class="w3-input w3-border" name="year" id="year" placeholder="yyyy">
                 </div>
             </div>
             <p id="date-error-message" style="color: red; margin-top: 10px;"></p>
@@ -170,6 +202,35 @@ function validateMissingDate() {
 document.getElementById("day").addEventListener("input", validateMissingDate);
 document.getElementById("month").addEventListener("input", validateMissingDate);
 document.getElementById("year").addEventListener("input", validateMissingDate);
+
+// Add this after the existing JavaScript code
+document.getElementById('ajaxForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    if (!validateMissingDate()) {
+        return false;
+    }
+
+    let formData = new FormData(this);
+    
+    fetch('process.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Missing person reported successfully');
+            window.location.href = 'home.php'; // Redirect to home page
+        } else {
+            alert('Error reporting missing person. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error reporting missing person. Please try again.');
+    });
+});
 </script>
 
 <?php

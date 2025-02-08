@@ -124,6 +124,11 @@ if (isset($_POST['update_status'])) {
                     <i class="bi bi-people me-2"></i>Campaigners
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-page="missing">
+                    <i class="bi bi-people me-2"></i>Missing Persons
+                </a>
+            </li>
         </ul>
 
         <!-- Main Content Area -->
