@@ -30,7 +30,7 @@ The **Renew Hope** is a web-based platform designed to assist in disaster recove
 3. **Run the application**:
    - Start a local PHP server:
      ```bash
-     php -S localhost:8000
+     localhost:8000
      ```
    - Access the system at `http://localhost:8000`
 
