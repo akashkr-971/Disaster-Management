@@ -37,7 +37,7 @@ The **Renew Hope** is a web-based platform designed to assist in disaster recove
 ## Usage
 - **Home Page**: Provides an overview of disaster recovery and support.
 - **Report Incident**: Users can submit details of a disaster event.
-- **AI Assistant**: Interacts with users to offer guidance and mental support.
+- **AI Assistant**: Interacts with users to offer guidance and Mental support.
 - **Admin Dashboard**: Manages users, reports, and system resources.
 - **Volunteer Dashboard**: 
 
