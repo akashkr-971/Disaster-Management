@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "imca";
+$password = "";
 $dbname = "dmsdb";
 
 try {
