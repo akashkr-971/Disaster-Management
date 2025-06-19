@@ -1,7 +1,7 @@
 # Renew Hope
 
 ## Overview
-The **Renew Hope** is a web-based platform designed to assist in disaster recovery, rehabilitation, and mental health support. This system provides *real-time* assistance, resources, and AI-driven support to individuals affected by disasters by providing important caller details and personal support.
+The **Renew Hope** is a web-based platform designed to assist in disaster recovery, rehabilitation, and mental health support. This system provides *real-time bot* assistance, resources, and AI-driven support to individuals affected by disasters by providing important caller details and personal support.
 
 ## Features
 - **AI-Powered Assistant**: Provides mental health support and guidance.
