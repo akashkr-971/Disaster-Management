@@ -9,7 +9,7 @@ The **Renew Hope** is a web-based platform designed to assist in disaster recove
 - **User Authentication**: Secure login and access control.
 - **Incident Reporting**: Allows users to report disasters and seek help.
 - **Real-Time Updates**: Keeps users informed with latest news and alerts.
-- **Community Support**: Connects affected individuals with volunteers.'
+- **Community Support**: Connects affected individuals with volunteers.
 - **Report Missing person**: Have the ability to report missing person by uploading images
 
 
@@ -17,7 +17,7 @@ The **Renew Hope** is a web-based platform designed to assist in disaster recove
 - **Frontend**: HTML, CSS, Bootstrap
 - **Backend**: PHP (Vanilla PHP)
 - **Database**: MySQL (phpMyAdmin)
-- **AI Model**: Local AI assistant using Mistral imported from ollama
+- **AI Model**: Local AI assistant called ResQAi using Mistral imported from ollama
 
 ## Installation & Setup
 1. **Clone the repository**:
